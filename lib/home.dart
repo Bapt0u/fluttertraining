@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
               Icons.search,
               semanticLabel: 'search',
             ),
-            onPressed: (){
+            onPressed: () {
               // todo
             },
           ),
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
               Icons.tune,
               semanticLabel: 'filter',
             ),
-            onPressed: (){
+            onPressed: () {
               //todo
             },
           )
@@ -39,14 +39,42 @@ class HomePage extends StatelessWidget {
       body: GridView.count(
         crossAxisCount: 2,
         padding: EdgeInsets.all(16.0),
-        childAspectRatio: 8.0/ 9.0,
-        children: <Widget>[
-          Card(),
-          Card(),
-          Card()
-        ],
+        childAspectRatio: 8.0 / 9.0,
+        children: _buildGridCards(80),
       ),
       resizeToAvoidBottomInset: false,
     );
   }
+}
+
+List<Card> _buildGridCards(int count) {
+  List<String> imagePath= ["palm-tree.png", "stag.png", "tete.png"];
+  List<Card> cards = List.generate(
+    count,
+    (int index) => Card(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          AspectRatio(
+            aspectRatio: 18.0 / 11.0,
+            child: Image.asset("img/${imagePath[index%3]}", fit: BoxFit.fitWidth),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("Title $index"),
+                SizedBox(height: 8.0),
+                Text("secondary Text"),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+
+  return cards;
 }
